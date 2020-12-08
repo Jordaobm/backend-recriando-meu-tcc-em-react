@@ -31,8 +31,6 @@ class CreateProductService {
 
     let categoryExists = await this.categoryRepository.findById(category_id);
 
-    console.log(categoryExists)
-
     if (!categoryExists) {
       throw new AppError('Categoria inválida')
     }
