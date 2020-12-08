@@ -1,5 +1,5 @@
-import { Entity, PrimaryGeneratedColumn, Column, CreateDateColumn, UpdateDateColumn } from 'typeorm';
-
+import { Entity, PrimaryGeneratedColumn, Column, CreateDateColumn, UpdateDateColumn, ManyToOne, JoinColumn } from 'typeorm';
+import Category from './Category';
 
 @Entity('products')
 class Product {
@@ -25,8 +25,12 @@ class Product {
   @UpdateDateColumn()
   updated_at: Date;
 
+  @ManyToOne(() => Category)
+  @JoinColumn({ name: 'category_id' })
+  category: Category;
+
   @Column()
-  category: string;
+  category_id: string;
 
   @Column()
   measure: string;

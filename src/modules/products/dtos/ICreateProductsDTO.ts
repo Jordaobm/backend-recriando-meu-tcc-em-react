@@ -3,7 +3,7 @@ export default interface ICreateProductsDTO {
   price: number;
   quantity: number;
   image_url: string;
-  category: string;
+  category_id: string;
   measure: string;
 }
 

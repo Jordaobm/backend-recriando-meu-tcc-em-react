@@ -5,7 +5,6 @@ import ICreateProductsDTO from '../../../dtos/ICreateProductsDTO';
 import IUpdateProductsQuantityDTO from '../../../dtos/IUpdateProductsQuantityDTO';
 
 import Product from '../entities/Product';
-import AppError from '@shared/errors/AppError';
 
 
 interface IFindProducts {
@@ -24,16 +23,18 @@ class ProductsRepository implements IProductsRepository {
     price,
     quantity,
     image_url,
-    category,
+    category_id,
     measure
   }: ICreateProductsDTO): Promise<Product> {
+
+
 
     const product = await this.ormRepository.create({
       name,
       price,
       quantity,
       image_url,
-      category,
+      category_id,
       measure
     })
 
@@ -67,10 +68,10 @@ class ProductsRepository implements IProductsRepository {
     return this.ormRepository.save(products);
   }
 
-
-
   public async findAllProducts(): Promise<Product[]> {
-    const products = await this.ormRepository.find();
+    const products = await this.ormRepository.find({
+      relations: ['category']
+    });
 
     return products;
   }
