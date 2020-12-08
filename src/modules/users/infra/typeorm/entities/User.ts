@@ -29,6 +29,8 @@ class User {
   @UpdateDateColumn()
   updated_at: Date;
 
+  @Column()
+  authorization: string;
 }
 
 export default User;
