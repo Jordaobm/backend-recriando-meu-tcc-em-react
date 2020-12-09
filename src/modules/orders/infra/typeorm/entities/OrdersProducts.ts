@@ -3,7 +3,7 @@ import { Column, Entity, JoinColumn, ManyToOne, PrimaryGeneratedColumn, CreateDa
 import Order from './Order'
 import Product from '@modules/products/infra/typeorm/entities/Product';
 
-@Entity('orders_product')
+@Entity('orders_products')
 class OrdersProducts {
   @PrimaryGeneratedColumn('uuid')
   id: string;
