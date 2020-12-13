@@ -11,6 +11,7 @@ class ListCategoriesService {
   ) { }
 
   public async execute(): Promise<Category[]> {
+
     const categories = await this.categoryRepository.findAllCategory();
 
     return categories;

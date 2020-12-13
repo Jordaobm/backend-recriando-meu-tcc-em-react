@@ -1,3 +1,4 @@
+import "reflect-metadata";
 import IProductsRepository from "@modules/products/repositories/IProductsRepository";
 import IUsersRepository from "@modules/users/repositories/IUsersRepository";
 import AppError from "@shared/errors/AppError";
@@ -37,7 +38,7 @@ class CreateOrderService {
     const userExists = await this.usersRepository.findById(user_id);
 
     if (!userExists) {
-      throw new AppError('Cliente não cadastrado')
+      throw new AppError('Cliente não cadastrado!')
     }
 
     const existentsProducts = await this.productsRepository.findAllById(
@@ -77,9 +78,7 @@ class CreateOrderService {
       products: seriealizedProducts,
     })
 
-
     const { order_products } = order;
-
 
     const orderedProductsQuantity = order_products.map(product => ({
       id: product.product_id,

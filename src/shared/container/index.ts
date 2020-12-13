@@ -14,6 +14,10 @@ import CategoryRepository from '@modules/products/infra/typeorm/repositories/Cat
 import IOrdesRepository from '@modules/orders/repositories/IOrdersRepository';
 import OrdersRepository from '@modules/orders/infra/typeorm/repositories/OrdersRepository';
 
+import IUserTokensRepository from '@modules/users/repositories/IUserTokensRepository';
+import UserTokensRepository from '@modules/users/infra/typeorm/repositories/UserTokensRepository';
+
+
 container.registerSingleton<IUsersRepository>('UsersRepository', UsersRepository);
 
 container.registerSingleton<IProductsRepository>(
@@ -32,3 +36,9 @@ container.registerSingleton<IOrdesRepository>(
   'OrdersRepository',
   OrdersRepository
 );
+
+container.registerSingleton<IUserTokensRepository>(
+  'UserTokensRepository',
+  UserTokensRepository,
+);
+
