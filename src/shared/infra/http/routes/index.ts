@@ -6,6 +6,7 @@ import productRouter from '@modules/products/infra/http/routes/products.routes';
 import categoryRouter from '@modules/products/infra/http/routes/category.routes';
 import ordersRouter from '@modules/orders/infra/http/routes/orders.routes';
 import passwordRouter from '@modules/users/infra/http/routes/password.routes';
+import profileRouter from '@modules/users/infra/http/routes/profile.routes';
 
 
 
@@ -20,6 +21,7 @@ routes.use('/product', productRouter);
 routes.use('/category', categoryRouter);
 routes.use('/orders', ordersRouter);
 routes.use('/password', passwordRouter);
+routes.use('/profile', profileRouter);
 
 
 
