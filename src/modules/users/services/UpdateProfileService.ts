@@ -1,5 +1,5 @@
 import AppError from "@shared/errors/AppError";
-import { inject } from "tsyringe";
+import { inject, injectable } from "tsyringe";
 import passwordRouter from "../infra/http/routes/password.routes";
 import User from "../infra/typeorm/entities/User";
 import IHashProvider from "../providers/HashProvider/models/IHashProvider";
@@ -14,7 +14,7 @@ interface IRequest {
 
 }
 
-
+@injectable()
 export default class UpdateProfileService {
   constructor(
 

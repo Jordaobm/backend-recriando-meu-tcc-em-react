@@ -18,7 +18,10 @@ import IUserTokensRepository from '@modules/users/repositories/IUserTokensReposi
 import UserTokensRepository from '@modules/users/infra/typeorm/repositories/UserTokensRepository';
 
 
-container.registerSingleton<IUsersRepository>('UsersRepository', UsersRepository);
+container.registerSingleton<IUsersRepository>(
+  'UsersRepository', 
+  UsersRepository
+);
 
 container.registerSingleton<IProductsRepository>(
   'ProductsRepository',

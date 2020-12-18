@@ -1,3 +1,5 @@
-#RECRIANDO o projeto do meu TCC
+# Recriando meu TCC de T.I
 
-Usandos das video-aulas e dos conhecimentos aprendidos no bootcamp GoStack, tentarei recriar meu TCC em React!!!
+Agora com conhecimentos básicos em Nodejs, Reactjs e React-Native, vou recriando meu TCC do Curso Técnico em Informática usando os conceitos de APIRest. 
+
+Essa aplicação será uma Loja virtual de atendimento ao Produtor Rural, onde ele poderá conversar com os profissionais da área de agricultura e efetuar a compra de insumos agrícolas de que precisa. 
