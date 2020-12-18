@@ -17,9 +17,11 @@ import OrdersRepository from '@modules/orders/infra/typeorm/repositories/OrdersR
 import IUserTokensRepository from '@modules/users/repositories/IUserTokensRepository';
 import UserTokensRepository from '@modules/users/infra/typeorm/repositories/UserTokensRepository';
 
+import INotificationsRepository from '@modules/notifications/repositories/INotificationsRepository';
+import NotificationsRepository from '@modules/notifications/infra/typeorm/repositories/NotificationsRepository';
 
 container.registerSingleton<IUsersRepository>(
-  'UsersRepository', 
+  'UsersRepository',
   UsersRepository
 );
 
@@ -45,3 +47,8 @@ container.registerSingleton<IUserTokensRepository>(
   UserTokensRepository,
 );
 
+
+container.registerSingleton<INotificationsRepository>(
+  'NotificationsRepository',
+  NotificationsRepository,
+);

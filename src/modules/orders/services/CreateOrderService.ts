@@ -5,6 +5,7 @@ import AppError from "@shared/errors/AppError";
 import { inject, injectable } from "tsyringe";
 import Order from "../infra/typeorm/entities/Order";
 import IOrdersRepository from "../repositories/IOrdersRepository";
+import INotificationsRepository from "@modules/notifications/repositories/INotificationsRepository";
 
 
 interface IProducts {
@@ -31,6 +32,10 @@ class CreateOrderService {
 
     @inject('UsersRepository')
     private usersRepository: IUsersRepository,
+
+    @inject('NotificationsRepository')
+    private notificationsRepository: INotificationsRepository,
+
   ) { }
 
   public async execute({ user_id, products }: IRequest): Promise<Order> {
@@ -87,6 +92,12 @@ class CreateOrderService {
     }));
 
     await this.productsRepository.updateQuantity(orderedProductsQuantity);
+
+
+    await this.notificationsRepository.create({
+      recipient_id:userExists.id,
+      content:`Um novo pedido foi realizado`
+    })
 
     return order;
   }

@@ -20,8 +20,9 @@ routes.use('/sessions', sessionsRouter);
 routes.use('/product', productRouter);
 routes.use('/category', categoryRouter);
 routes.use('/orders', ordersRouter);
-routes.use('/password', passwordRouter);
 routes.use('/profile', profileRouter);
+routes.use('/password', passwordRouter);
+
 
 
 
