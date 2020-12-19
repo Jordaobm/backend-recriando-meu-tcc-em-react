@@ -3,20 +3,24 @@ import FakeProductsRepository from '../repositories/fakes/FakeProductsRepository
 import CreateProductService from "./CreateProductService";
 import FakeCategoryRepository from "../repositories/fakes/FakeCategoryRepository";
 import CreateCategoryService from "./CreateCategoryService";
+import FakeCacheProvider from "@shared/container/providers/CacheProvider/fakes/FakeCacheProvider";
 
 let fakeProductsRepository: FakeProductsRepository;
 let fakeCategoryRepository: FakeCategoryRepository;
 let listProduct: ListProductService;
 let createProduct: CreateProductService;
 let createCategory: CreateCategoryService;
+let fakeCacheProvider: FakeCacheProvider;
+
 
 describe('List Product Service', () => {
 
   beforeEach(() => {
     fakeCategoryRepository = new FakeCategoryRepository();
     fakeProductsRepository = new FakeProductsRepository();
-    listProduct = new ListProductService(fakeProductsRepository);
-    createProduct = new CreateProductService(fakeProductsRepository, fakeCategoryRepository);
+    fakeCacheProvider = new FakeCacheProvider();
+    listProduct = new ListProductService(fakeProductsRepository, fakeCacheProvider);
+    createProduct = new CreateProductService(fakeProductsRepository, fakeCategoryRepository, fakeCacheProvider);
     createCategory = new CreateCategoryService(fakeCategoryRepository);
   })
 

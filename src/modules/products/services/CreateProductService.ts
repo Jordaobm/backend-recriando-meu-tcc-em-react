@@ -3,6 +3,7 @@ import { inject, injectable } from 'tsyringe';
 import Product from '../infra/typeorm/entities/Product';
 import IProductsRepository from '../repositories/IProductsRepository';
 import ICategoryRepository from '../repositories/ICategoryRepository';
+import ICacheProvider from '@shared/container/providers/CacheProvider/models/ICacheProvider';
 
 interface IRequest {
   name: string;
@@ -22,7 +23,10 @@ class CreateProductService {
     private productsRepository: IProductsRepository,
 
     @inject('CategoryRepository')
-    private categoryRepository: ICategoryRepository
+    private categoryRepository: ICategoryRepository,
+
+    @inject('CacheProvider')
+    private cacheProvider: ICacheProvider,
 
   ) { }
 
@@ -47,6 +51,8 @@ class CreateProductService {
       name, price, quantity, image_url, category_id: categoryExists.id, measure
     });
 
+    await this.cacheProvider.invalidate('AllProductsListCache')
+    await this.cacheProvider.invalidate(`ListProductsOfASpecificCategory:${category_id}`)
 
     return product;
   }

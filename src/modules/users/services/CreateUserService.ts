@@ -41,6 +41,7 @@ class CreateUserService {
       email,
       password: hashedPassword,
       authorization,
+
     });
 
     return user;

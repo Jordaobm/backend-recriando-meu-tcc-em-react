@@ -26,8 +26,15 @@ class UsersRepository implements IUsersRepository {
     return user;
 }
 
-  public async create(userData: ICreateUserDTO): Promise<User> {
-    const user = this.ormRepository.create(userData);
+  public async create({name, email, password, authorization}: ICreateUserDTO): Promise<User> {
+   
+    const user = this.ormRepository.create({
+      name,
+      email,
+      password,
+      avatar:'http://localhost:3333/files/bdb59e47dbc7e558d572-john%20doe.png',
+      authorization,
+    });
 
     await this.ormRepository.save(user);
 

@@ -2,11 +2,15 @@ import { container } from 'tsyringe';
 
 import EtherealMailProvider from './MailProvider/implementations/EtherealMailProvider';
 import HandleBarsMailTemplateProvider from './MailTemplateProvider/implementations/HandleBarsMailTemplateProvider';
+
 import IMailTemplateProvider from './MailTemplateProvider/models/IMailTemplateProvider';
 import IMailProvider from './MailProvider/models/IMailProvider';
 
 import DiskStorageProvider from './StorageProvider/implementations/DiskStorageProvider';
 import IStorageProvider from './StorageProvider/models/IStorageProvider';
+
+import ICacheProvider from './CacheProvider/models/ICacheProvider';
+import RedisCacheProvider from './CacheProvider/implementations/RedisCacheProvider';
 
 
 container.registerSingleton<IStorageProvider>(
@@ -24,3 +28,8 @@ container.registerInstance<IMailProvider>(
   container.resolve(EtherealMailProvider),
 )
 
+
+container.registerSingleton<ICacheProvider>(
+  'CacheProvider',
+  RedisCacheProvider
+)

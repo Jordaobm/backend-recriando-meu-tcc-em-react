@@ -55,6 +55,15 @@ class ProductsRepository implements IProductsRepository {
     return this.products;
   }
 
+  public async findProductsSpecificCategory(id: string): Promise<Product[]> {
+    const products = this.products.filter(product => product.category_id == id);
+
+    return products
+  }
+
+
+
+
 }
 
 export default ProductsRepository;

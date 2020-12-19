@@ -13,4 +13,5 @@ export default interface IProductsRepository {
   findAllById(product: IFindProducts[]): Promise<Product[]>;
   updateQuantity(products: IUpdateProductsQuantityDTO[]): Promise<Product[]>
   findAllProducts(): Promise<Product[]>;
+  findProductsSpecificCategory(id:string):Promise<Product[]>
 }

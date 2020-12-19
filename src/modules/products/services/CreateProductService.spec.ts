@@ -2,19 +2,23 @@ import FakeCategoryRepository from "../repositories/fakes/FakeCategoryRepository
 import CreateProductService from "./CreateProductService";
 import FakeProductRepository from '../repositories/fakes/FakeProductsRepository';
 import AppError from "@shared/errors/AppError";
+import FakeCacheProvider from "@shared/container/providers/CacheProvider/fakes/FakeCacheProvider";
 
 
 let fakeCategoryRepository: FakeCategoryRepository;
 let fakeProductRepository: FakeProductRepository;
+let fakeCacheProvider: FakeCacheProvider;
 let createProduct: CreateProductService;
+
 
 
 describe('Create Product Service Test', () => {
 
   beforeEach(() => {
+    fakeCacheProvider = new FakeCacheProvider();
     fakeProductRepository = new FakeProductRepository();
     fakeCategoryRepository = new FakeCategoryRepository();
-    createProduct = new CreateProductService(fakeProductRepository, fakeCategoryRepository);
+    createProduct = new CreateProductService(fakeProductRepository, fakeCategoryRepository, fakeCacheProvider);
 
   })
 
@@ -58,7 +62,7 @@ describe('Create Product Service Test', () => {
       name: 'herbicidas'
     });
 
-     await createProduct.execute({
+    await createProduct.execute({
       name: 'Produto',
       price: 100,
       category_id: category.id,
