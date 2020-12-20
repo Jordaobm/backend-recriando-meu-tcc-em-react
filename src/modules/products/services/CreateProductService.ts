@@ -12,7 +12,6 @@ interface IRequest {
   image_url: string;
   category_id: string;
   measure: string;
-
 }
 
 

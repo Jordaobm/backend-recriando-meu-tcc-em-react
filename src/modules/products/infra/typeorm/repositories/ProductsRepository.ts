@@ -5,6 +5,8 @@ import ICreateProductsDTO from '../../../dtos/ICreateProductsDTO';
 import IUpdateProductsQuantityDTO from '../../../dtos/IUpdateProductsQuantityDTO';
 
 import Product from '../entities/Product';
+import IUpdateProductDTO from '@modules/products/dtos/IUpdateProductDTO';
+import AppError from '@shared/errors/AppError';
 
 
 interface IFindProducts {
@@ -76,15 +78,38 @@ class ProductsRepository implements IProductsRepository {
     return products;
   }
 
-
   public async findProductsSpecificCategory(id: string): Promise<Product[]> {
 
-    const products = await this.ormRepository.find();
+    const products = await this.ormRepository.find({
+      relations: ['category']
+    });
 
-    const filterProducts = await products.filter(product=> product.category_id == id);
+    const filterProducts = await products.filter(product => product.category_id == id);
 
     return filterProducts;
 
+  }
+
+  public async findById(id: string): Promise<Product> {
+    const product = await this.ormRepository.findOne({
+      where: { id },
+      relations: ['category']
+    });
+
+    if (!product) {
+      throw new AppError('Não existe produto com esse id')
+    }
+
+    return product;
+
+  }
+
+  public async save(data: IUpdateProductDTO): Promise<Product> {
+    return this.ormRepository.save(data);
+  }
+
+  public async delete(id: string): Promise<void> {
+    await this.ormRepository.delete({ id });
   }
 
 }

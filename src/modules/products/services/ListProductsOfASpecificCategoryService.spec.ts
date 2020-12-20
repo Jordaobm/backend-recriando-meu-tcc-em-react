@@ -1,4 +1,5 @@
 import FakeCacheProvider from '@shared/container/providers/CacheProvider/fakes/FakeCacheProvider';
+import FakeCategoryRepository from '../repositories/fakes/FakeCategoryRepository';
 import FakeProductsRepository from '../repositories/fakes/FakeProductsRepository'
 import ListProductsOfASpecificCategoryService from './ListProductsOfASpecificCategoryService';
 
@@ -6,14 +7,16 @@ import ListProductsOfASpecificCategoryService from './ListProductsOfASpecificCat
 let fakeProductsRepository: FakeProductsRepository;
 let fakeCacheProvider: FakeCacheProvider;
 let listProductsOfASpecificCategoryService: ListProductsOfASpecificCategoryService;
+let fakeCategoryRepository: FakeCategoryRepository;
 
 describe('ListProductsOfASpecificCategoryService', () => {
 
     beforeEach(() => {
 
+        fakeCategoryRepository = new FakeCategoryRepository();
         fakeCacheProvider = new FakeCacheProvider();
         fakeProductsRepository = new FakeProductsRepository();
-        listProductsOfASpecificCategoryService = new ListProductsOfASpecificCategoryService(fakeProductsRepository, fakeCacheProvider);
+        listProductsOfASpecificCategoryService = new ListProductsOfASpecificCategoryService(fakeProductsRepository, fakeCacheProvider, fakeCategoryRepository);
 
     })
 

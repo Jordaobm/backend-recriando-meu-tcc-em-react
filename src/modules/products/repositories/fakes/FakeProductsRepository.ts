@@ -3,6 +3,8 @@ import ICreateProductsDTO from "@modules/products/dtos/ICreateProductsDTO";
 import IUpdateProductsQuantityDTO from "@modules/products/dtos/IUpdateProductsQuantityDTO";
 import Product from "@modules/products/infra/typeorm/entities/Product";
 import IProductsRepository from "../IProductsRepository";
+import AppError from "@shared/errors/AppError";
+import IUpdateProductDTO from "@modules/products/dtos/IUpdateProductDTO";
 
 
 class ProductsRepository implements IProductsRepository {
@@ -60,6 +62,34 @@ class ProductsRepository implements IProductsRepository {
 
     return products
   }
+
+  public async findById(id: string): Promise<Product> {
+    const product = this.products.find(product => product.id == id);
+
+    if (!product) {
+      throw new AppError('Não existe produto com esse id')
+    }
+
+    return product
+  }
+
+  public async save(product: Product): Promise<Product> {
+
+    const findIndex = this.products.findIndex(product => product.id == product.id)
+
+    this.products[findIndex] = product;
+
+    return product;
+
+  }
+
+  public async delete(id: string): Promise<void> {
+    const findIndex = this.products.findIndex(product => product.id == id);
+
+    this.products.splice(findIndex, 1);
+
+  }
+
 
 
 

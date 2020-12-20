@@ -1,6 +1,7 @@
 import ICacheProvider from "@shared/container/providers/CacheProvider/models/ICacheProvider";
 import { inject, injectable } from "tsyringe";
 import Product from "../infra/typeorm/entities/Product";
+import ICategoryRepository from "../repositories/ICategoryRepository";
 import IProductsRepository from "../repositories/IProductsRepository";
 
 interface IRequest {
@@ -17,9 +18,14 @@ export default class ListProductsOfASpecificCategoryService {
         @inject('CacheProvider')
         private cacheProvider: ICacheProvider,
 
+        @inject('CategoryRepository')
+        private categoryRepository:ICategoryRepository,
+
     ) { }
 
     public async execute({ id }: IRequest): Promise<Product[]> {
+
+        const category = await this.categoryRepository.findById(id);
 
         let products = await this.cacheProvider.recover<Product[]>(`ListProductsOfASpecificCategory:${id}`)
 
