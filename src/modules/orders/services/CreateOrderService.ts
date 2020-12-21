@@ -6,6 +6,7 @@ import { inject, injectable } from "tsyringe";
 import Order from "../infra/typeorm/entities/Order";
 import IOrdersRepository from "../repositories/IOrdersRepository";
 import INotificationsRepository from "@modules/notifications/repositories/INotificationsRepository";
+import ICacheProvider from "@shared/container/providers/CacheProvider/models/ICacheProvider";
 
 
 interface IProducts {
@@ -35,6 +36,9 @@ class CreateOrderService {
 
     @inject('NotificationsRepository')
     private notificationsRepository: INotificationsRepository,
+
+    @inject('CacheProvider')
+    private cacheProvider: ICacheProvider,
 
   ) { }
 
@@ -95,9 +99,12 @@ class CreateOrderService {
 
 
     await this.notificationsRepository.create({
-      recipient_id:userExists.id,
-      content:`Um novo pedido foi realizado`
+      recipient_id: userExists.id,
+      content: `Um novo pedido foi realizado`
     })
+
+    await this.cacheProvider.invalidate('AllProductsListCache')
+    await this.cacheProvider.invalidate(`ListProductsOfASpecificCategory:${existentsProducts.map(product => product.category_id)}`)
 
     return order;
   }
