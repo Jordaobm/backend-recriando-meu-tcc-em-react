@@ -7,7 +7,8 @@ import AppError from '@shared/errors/AppError';
 interface TokenPayload {
   iat: number;
   exp: number;
-  sub: string;
+  id: string;
+  authorization: string;
 }
 
 export default function ensureAuthenticated(
@@ -15,6 +16,7 @@ export default function ensureAuthenticated(
   response: Response,
   next: NextFunction,
 ): void {
+
   const authHeader = request.headers.authorization;
 
   if (!authHeader) {
@@ -24,16 +26,17 @@ export default function ensureAuthenticated(
   const [, token] = authHeader.split(' ');
 
   try {
-    const decoded = verify(token, authConfig.jwt.secret);
+    const verifyToken = verify(token, authConfig.jwt.publicKey);
 
-    const { sub } = decoded as TokenPayload;
+    const dataToken = verifyToken as TokenPayload;
 
     request.user = {
-      id: sub,
+      id: dataToken.id,
     }
+
     return next();
   } catch {
     throw new AppError("Token inválido", 401);
-
   }
+
 }

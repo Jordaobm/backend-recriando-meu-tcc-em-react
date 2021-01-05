@@ -42,12 +42,9 @@ class AuthenticateUserService {
       throw new AppError("Email/Senha incorreto", 401);
     }
 
-    const { secret, expiresIn } = authConfig.jwt;
+    const { privateKey, expiresIn } = authConfig.jwt;
 
-    const token = sign({}, secret, {
-      subject: user.id,
-      expiresIn,
-    });
+    const token = sign({id:user.id, authorization: user.authorization}, privateKey, {expiresIn:'1d', algorithm: 'RS256'})
 
     return { user, token }
   }
